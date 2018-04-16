@@ -5,7 +5,6 @@ language_tabs: # must be one of https://git.io/vQNgJ
   - json
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
   - <a href='https://github.com/lord/slate'>Documentation Powered by Slate</a>
 
 search: true
@@ -34,10 +33,6 @@ This endpoint handles refreshing the user's device token.
 Key | Required | Description
 --------- | ------- | -----------
 device_token | true | the user's new device token
-
-<aside class="success">
-  This will return an object containing the number of tokens refreshed.
-</aside>
 
 ## Get Team Member Profile
 
