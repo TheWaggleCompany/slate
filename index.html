@@ -201,7 +201,7 @@
       <script src="javascripts/all.js"></script>
   </head>
 
-  <body class="index" data-languages="[&quot;shell&quot;,&quot;ruby&quot;,&quot;python&quot;,&quot;javascript&quot;]">
+  <body class="index" data-languages="[&quot;json&quot;]">
     <a href="#" id="nav-button">
       <span>
         NAV
@@ -211,10 +211,7 @@
     <div class="toc-wrapper">
       <img src="images/logo.png" class="logo" alt="Logo" />
         <div class="lang-selector">
-              <a href="#" data-language-name="shell">shell</a>
-              <a href="#" data-language-name="ruby">ruby</a>
-              <a href="#" data-language-name="python">python</a>
-              <a href="#" data-language-name="javascript">javascript</a>
+              <a href="#" data-language-name="json">json</a>
         </div>
         <div class="search">
           <input type="text" class="search" id="input-search" placeholder="Search">
@@ -222,27 +219,42 @@
         <ul class="search-results"></ul>
       <div id="toc" class="toc-list-h1">
           <li>
-            <a href="#introduction" class="toc-h1 toc-link" data-title="Introduction">Introduction</a>
+            <a href="#introduction" class="toc-h1 toc-link" data-title="introduction">Introduction</a>
           </li>
           <li>
-            <a href="#authentication" class="toc-h1 toc-link" data-title="Authentication">Authentication</a>
+            <a href="#authentication" class="toc-h1 toc-link" data-title="authentication">Authentication</a>
           </li>
           <li>
-            <a href="#kittens" class="toc-h1 toc-link" data-title="Kittens">Kittens</a>
+            <a href="#team-member-endpoints" class="toc-h1 toc-link" data-title="team-member-endpoints">Team Member Endpoints</a>
               <ul class="toc-list-h2">
                   <li>
-                    <a href="#get-all-kittens" class="toc-h2 toc-link" data-title="Get All Kittens">Get All Kittens</a>
+                    <a href="#device-tokens" class="toc-h2 toc-link" data-title="device-tokens">Device Tokens</a>
                   </li>
                   <li>
-                    <a href="#get-a-specific-kitten" class="toc-h2 toc-link" data-title="Get a Specific Kitten">Get a Specific Kitten</a>
+                    <a href="#get-team-member-profile" class="toc-h2 toc-link" data-title="get-team-member-profile">Get Team Member Profile</a>
                   </li>
                   <li>
-                    <a href="#delete-a-specific-kitten" class="toc-h2 toc-link" data-title="Delete a Specific Kitten">Delete a Specific Kitten</a>
+                    <a href="#update-team-member-profile" class="toc-h2 toc-link" data-title="update-team-member-profile">Update Team Member Profile</a>
+                  </li>
+                  <li>
+                    <a href="#get-list-of-appointments" class="toc-h2 toc-link" data-title="get-list-of-appointments">Get List of Appointments</a>
+                  </li>
+                  <li>
+                    <a href="#start-an-appointment" class="toc-h2 toc-link" data-title="start-an-appointment">Start an Appointment</a>
+                  </li>
+                  <li>
+                    <a href="#end-an-appointment" class="toc-h2 toc-link" data-title="end-an-appointment">End an Appointment</a>
+                  </li>
+                  <li>
+                    <a href="#update-appointment-notes" class="toc-h2 toc-link" data-title="update-appointment-notes">Update Appointment Notes</a>
+                  </li>
+                  <li>
+                    <a href="#add-appointment-images" class="toc-h2 toc-link" data-title="add-appointment-images">Add Appointment Images</a>
                   </li>
               </ul>
           </li>
           <li>
-            <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
+            <a href="#errors" class="toc-h1 toc-link" data-title="errors">Errors</a>
           </li>
       </div>
         <ul class="toc-footer">
@@ -254,186 +266,553 @@
       <div class="dark-box"></div>
       <div class="content">
         <h1 id='introduction'>Introduction</h1>
-<p>Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.</p>
-
-<p>We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.</p>
-
-<p>This example API documentation page was created with <a href="https://github.com/lord/slate">Slate</a>. Feel free to edit it and use it as a base for your own API&#39;s documentation.</p>
+<p>Welcome to the Waggle API! Here you fill find info on using our API for the client, admin, and team member applications.</p>
 <h1 id='authentication'>Authentication</h1>
-<blockquote>
-<p>To authorize, use this code:</p>
-</blockquote>
-<pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code><span class="c"># With shell, you can just pass the correct header with each request</span>
-curl <span class="s2">"api_endpoint_here"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-</code></pre>
-<blockquote>
-<p>Make sure to replace <code>meowmeowmeow</code> with your API key.</p>
-</blockquote>
-
-<p>Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our <a href="http://example.com/developers">developer portal</a>.</p>
-
-<p>Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:</p>
-
-<p><code>Authorization: meowmeowmeow</code></p>
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-<h1 id='kittens'>Kittens</h1><h2 id='get-all-kittens'>Get All Kittens</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">kittens</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">();</span>
-</code></pre>
-<blockquote>
-<p>The above command returns JSON structured like this:</p>
-</blockquote>
-<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fluffums"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"calico"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">7</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="p">{</span><span class="w">
-    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-    </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-  </span><span class="p">}</span><span class="w">
-</span><span class="p">]</span><span class="w">
-</span></code></pre>
-<p>This endpoint retrieves all kittens.</p>
+<p>All authentication is handled by a Firebase JWT, passed in as an auth header, such as <code>Authorization: Bearer eyfj123...</code> . All endpoints require this authentication.</p>
+<h1 id='team-member-endpoints'>Team Member Endpoints</h1><h2 id='device-tokens'>Device Tokens</h2>
+<p>This endpoint handles refreshing the user&#39;s device token.</p>
 <h3 id='http-request'>HTTP Request</h3>
-<p><code>GET http://example.com/api/kittens</code></p>
-<h3 id='query-parameters'>Query Parameters</h3>
+<p><code>POST http://example.com/sitter/device-token</code></p>
+<h3 id='request-body'>Request Body</h3>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Default</th>
+<th>Key</th>
+<th>Required</th>
 <th>Description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>include_cats</td>
-<td>false</td>
-<td>If set to true, the result will also include cats.</td>
-</tr>
-<tr>
-<td>available</td>
+<td>device_token</td>
 <td>true</td>
-<td>If set to false, the result will include kittens that have already been adopted.</td>
+<td>the user&#39;s new device token</td>
 </tr>
 </tbody></table>
 
 <aside class="success">
-Remember — a happy kitten is an authenticated kitten!
+  This will return an object containing the number of tokens refreshed.
 </aside>
-<h2 id='get-a-specific-kitten'>Get a Specific Kitten</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-</code></pre>
+<h2 id='get-team-member-profile'>Get Team Member Profile</h2>
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>Team member profile returns JSON like this:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Max"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"unknown"</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"fluffiness"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"cuteness"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="w">
-</span><span class="p">}</span><span class="w">
+      </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"address_line_1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"809 West Hill St"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"address_line_2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Unit B"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Charlotte"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NC"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"zip_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"28202"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"secondary_address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"address_line_1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12424 Agate Ln."</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"address_line_2"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pineville"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NC"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"zip_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"28134"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"use_secondary_for_routing"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+    </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint retrieves a specific kitten.</p>
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+<p>This endpoint retrieves the team member&#39;s profile.</p>
 <h3 id='http-request-2'>HTTP Request</h3>
-<p><code>GET http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters'>URL Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>ID</td>
-<td>The ID of the kitten to retrieve</td>
-</tr>
-</tbody></table>
-<h2 id='delete-a-specific-kitten'>Delete a Specific Kitten</h2><pre class="highlight ruby tab-ruby"><code><span class="nb">require</span> <span class="s1">'kittn'</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="no">Kittn</span><span class="o">::</span><span class="no">APIClient</span><span class="p">.</span><span class="nf">authorize!</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="p">.</span><span class="nf">kittens</span><span class="p">.</span><span class="nf">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight python tab-python"><code><span class="kn">import</span> <span class="nn">kittn</span>
-
-<span class="n">api</span> <span class="o">=</span> <span class="n">kittn</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="s">'meowmeowmeow'</span><span class="p">)</span>
-<span class="n">api</span><span class="o">.</span><span class="n">kittens</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</code></pre><pre class="highlight shell tab-shell"><code>curl <span class="s2">"http://example.com/api/kittens/2"</span>
-  -X DELETE
-  -H <span class="s2">"Authorization: meowmeowmeow"</span>
-</code></pre><pre class="highlight javascript tab-javascript"><code><span class="kr">const</span> <span class="nx">kittn</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">'kittn'</span><span class="p">);</span>
-
-<span class="kd">let</span> <span class="nx">api</span> <span class="o">=</span> <span class="nx">kittn</span><span class="p">.</span><span class="nx">authorize</span><span class="p">(</span><span class="s1">'meowmeowmeow'</span><span class="p">);</span>
-<span class="kd">let</span> <span class="nx">max</span> <span class="o">=</span> <span class="nx">api</span><span class="p">.</span><span class="nx">kittens</span><span class="p">.</span><span class="k">delete</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
-</code></pre>
+<p><code>GET http://example.com/sitter/profile</code></p>
+<h2 id='update-team-member-profile'>Update Team Member Profile</h2>
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>Update TM profile both accepts &amp; returns JSON structured like this:</p>
 </blockquote>
 <pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
-  </span><span class="s2">"deleted"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">":("</span><span class="w">
-</span><span class="p">}</span><span class="w">
+      </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"address_line_1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"809 West Hill St"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"address_line_2"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Unit B"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Charlotte"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NC"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"zip_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"28202"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"secondary_address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"address_line_1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12424 Agate Ln."</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"address_line_2"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pineville"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NC"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"zip_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"28134"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"use_secondary_for_routing"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+    </span><span class="p">}</span><span class="w">
 </span></code></pre>
-<p>This endpoint deletes a specific kitten.</p>
+<p>This endpoint updates a team member profile. The <code>use_secondary_for_routing</code> key is whether or not the team member&#39;s starting location will be calculated using their secondary address.</p>
 <h3 id='http-request-3'>HTTP Request</h3>
-<p><code>DELETE http://example.com/kittens/&lt;ID&gt;</code></p>
-<h3 id='url-parameters-2'>URL Parameters</h3>
+<p><code>PUT http://example.com/sitter/profile</code></p>
+<h2 id='get-list-of-appointments'>Get List of Appointments</h2>
+<blockquote>
+<p>Returns an array of appointment objects:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">[</span><span class="w">
+
+    </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-15T09:52:44.396Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5a5c79ecac24280014d01006"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"appointment_status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"In Progress"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"scheduled_start_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-03-23T15:30:00.000Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"window_start_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-03-23T15:30:00.000Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"window_end_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-03-23T17:00:00.000Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"appointment_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10 Min Visit"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"duration_in_minutes"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"sitter_viewed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"pets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5a4f87441a06183b2ffcb6ec"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fenway"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://waggle-keys-stage.s3.amazonaws.com/939abdc3-fcac-4695-b1e9-2bbf136d320f.jpeg"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"pet_class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Green"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5a4f87431a06183b2ffcb6eb"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bryce"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://waggle-keys-stage.s3.amazonaws.com/58305fa2-65fa-432d-b772-51b923a50c82.jpeg"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"pet_class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Green"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="s2">"home"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"home_class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Green"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"tz_locale"</span><span class="p">:</span><span class="w"> </span><span class="s2">"America/New_York"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"enforce_device_within_region"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"createdAt"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-01-15T09:52:44.393Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5a5c79ebac24280014d01003"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"appointment_status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Completed"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"scheduled_start_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-03-20T15:30:00.000Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"actual_start_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-03-20T14:07:23.864Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"window_start_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-03-20T15:30:00.000Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"window_end_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-03-20T17:00:00.000Z"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"appointment_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"10 Min Visit"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"duration_in_minutes"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"sitter_viewed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"pets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5a4f87441a06183b2ffcb6ec"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Fenway"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://waggle-keys-stage.s3.amazonaws.com/939abdc3-fcac-4695-b1e9-2bbf136d320f.jpeg"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"pet_class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Green"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5a4f87431a06183b2ffcb6eb"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Bryce"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://waggle-keys-stage.s3.amazonaws.com/58305fa2-65fa-432d-b772-51b923a50c82.jpeg"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"pet_class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Green"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="s2">"home"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"home_class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Green"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"tz_locale"</span><span class="p">:</span><span class="w"> </span><span class="s2">"America/New_York"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"enforce_device_within_region"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+</span><span class="p">]</span><span class="w">
+
+</span></code></pre><h3 id='http-request-4'>HTTP Request</h3>
+<p><code>GET http://example.com/sitter/appointments</code></p>
+<h3 id='list-of-appointment-statuses'>List of Appointment Statuses</h3>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Description</th>
+<th>Status ID</th>
+<th>Name</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>ID</td>
-<td>The ID of the kitten to delete</td>
+<td>1</td>
+<td>Pending</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Approved</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Change Requested</td>
+</tr>
+<tr>
+<td>4</td>
+<td>In Progress</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Completed</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Rejected</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Canceled</td>
 </tr>
 </tbody></table>
+<h2 id='start-an-appointment'>Start an Appointment</h2>
+<blockquote>
+<p>Starting visit accepts three keys, but none are required. They tell the API whether or not the visit was started out of proper GPS range, and pass in the coordinates if true.</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"override_device_within_region"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"override_start_longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">35.1234567</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"override_start_latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">83.390193</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Returns the updated visit (same as GET single visit response):</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5aafb04f580d62e1145990a5"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"show_survey"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"appointment_status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pending"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"appointment_type"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Consultation"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"duration_in_minutes"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"admin_notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5019209816 "</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"visit_routine"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Walk Brinkley for entire visit to burn as much energy as possible."</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"duration_in_minutes"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"sitter_viewed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"addons"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="s2">"scheduled_start_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-03-19T12:36:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"window_start_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-03-19T14:00:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"window_end_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-03-19T15:00:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"kml"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"requires_tracking"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"appointment_images"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="s2">"client_images"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ab2fe3d7f9ff30014591012"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://waggle-keys-stage.s3.amazonaws.com/56aca046-f979-4e0f-a71b-98a8e9a970a6.jpeg"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ab303ad4262910014aa3474"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://waggle-keys-stage.s3.amazonaws.com/ff8c5873-2b87-41ce-a030-9f21d4c20515.jpg"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ab308cc512bb90014544f60"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://waggle-keys-stage.s3.amazonaws.com/ff8c5873-2b87-41ce-a030-9f21d4c20515.jpg"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ab3111934b8380014e1115f"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://waggle-keys-stage.s3.amazonaws.com/15277E3F-86DE-46A9-A282-42AFE050DB78-5596-000006549798FCC1.jpeg"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"sitter_full_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Luke Griffith"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"pets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5a4f87161a06183b2ffcb4aa"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Brinkley"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"animal_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dog"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"size"</span><span class="p">:</span><span class="w"> </span><span class="s2">"L (50-80)"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://waggle-keys-stage.s3.amazonaws.com/ff8c5873-2b87-41ce-a030-9f21d4c20515.jpg"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Blue Tick Coon Hound Mix"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"gender"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Neutered Male"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"age"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Senior (&gt;7 years)"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"color"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Black and Brown"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"weight"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"litterbox"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"pet_location"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Free roaming"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"leash_collar"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Leash/harness hanging to left of washer in laundry closet"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"harness"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Leg steps into each triangle, clips together on back"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"toy_info"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"personality"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Friendly"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"pet_class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Yellow"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"pet_class_notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dog aggressive--avoid other dogs."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"pet_add_ons"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pee"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"completed"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"pet_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5a4f87161a06183b2ffcb4aa"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Poop"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"completed"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"pet_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5a4f87161a06183b2ffcb4aa"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="s2">"food"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"bowl_location"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Kitchen"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"food_treat_location"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dry food in laundry closet. Open canned food in fridge, or new can in laundry."</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"brand_of_food"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"food_instructions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1 cup dry food a.m., 1.5 cup dry p.m. Add 3 TBSP canned food to dry."</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"water_instructions"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"treat_info"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Treats above dry food."</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"medical"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"allergies"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"fixed"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"medications"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"vet"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"full_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Nick's Veterinary Hospital"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"address_line_2"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NC"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"contact"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Abbie"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Example"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"full_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Abbie Example"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example@gmail.com"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"phone_numbers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5619209516"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mobile"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"home"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"address_line_1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1829 Logie Ave"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"address_line_2"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Charlotte"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NC"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"zip_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"28205"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"map_image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://waggle-keys-stage.s3.amazonaws.com/undefined"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"street_view_image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://waggle-keys-stage.s3.amazonaws.com/undefined"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"coordinates"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">35.22264513423151</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">-80.7987217</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"enforce_device_within_region"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"tz_locale"</span><span class="p">:</span><span class="w"> </span><span class="s2">"America/New_York"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"alarm_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Disarm: 0212212316. Arm: Arm+Bypass All+Away. Alarm is on left as you walk in front door."</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"parking"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"home_access_notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Owner's lockbox on front door handle. CODE: 2323914, press top button down and pull toward you. Enter code again to close box. Enter home through front door."</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"home_class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Green"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"home_class_notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"waste_disposal"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Garbage bin in driveway."</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"secured_yard"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Yes"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"apartment_info"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Brinkley pulls for squirrels."</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Start a visit. In order to start, the visit must have the status of &#39;Approved&#39;, and the team member must be within the time window.</p>
+<h3 id='http-request-5'>HTTP Request</h3>
+<p><code>PUT http://example.com/sitter/appointments/&lt;AppointmentId&gt;/start</code></p>
+<h2 id='end-an-appointment'>End an Appointment</h2>
+<blockquote>
+<p>Request body includes array of completed visit addons, with a pet id if the addon is pet-specific (like feeding)</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"completed_addons"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pee"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"completed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"pet_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5a4f87161a06183b2ffcb4aa"</span><span class="w">
+  </span><span class="p">}]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Returns the updated visit (same as GET single visit response):</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5aafb04f580d62e1145990a5"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"show_survey"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"appointment_status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pending"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"appointment_type"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Consultation"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"duration_in_minutes"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"admin_notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5019209816 "</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"visit_routine"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Walk Brinkley for entire visit to burn as much energy as possible."</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"duration_in_minutes"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"sitter_viewed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"addons"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="s2">"scheduled_start_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-03-19T12:36:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"window_start_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-03-19T14:00:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"window_end_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-03-19T15:00:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"kml"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"requires_tracking"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"appointment_images"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="s2">"client_images"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ab2fe3d7f9ff30014591012"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://waggle-keys-stage.s3.amazonaws.com/56aca046-f979-4e0f-a71b-98a8e9a970a6.jpeg"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ab303ad4262910014aa3474"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://waggle-keys-stage.s3.amazonaws.com/ff8c5873-2b87-41ce-a030-9f21d4c20515.jpg"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ab308cc512bb90014544f60"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://waggle-keys-stage.s3.amazonaws.com/ff8c5873-2b87-41ce-a030-9f21d4c20515.jpg"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ab3111934b8380014e1115f"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://waggle-keys-stage.s3.amazonaws.com/15277E3F-86DE-46A9-A282-42AFE050DB78-5596-000006549798FCC1.jpeg"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"sitter_full_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Luke Griffith"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"pets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5a4f87161a06183b2ffcb4aa"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Brinkley"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"animal_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dog"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"size"</span><span class="p">:</span><span class="w"> </span><span class="s2">"L (50-80)"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://waggle-keys-stage.s3.amazonaws.com/ff8c5873-2b87-41ce-a030-9f21d4c20515.jpg"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Blue Tick Coon Hound Mix"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"gender"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Neutered Male"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"age"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Senior (&gt;7 years)"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"color"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Black and Brown"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"weight"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"litterbox"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"pet_location"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Free roaming"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"leash_collar"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Leash/harness hanging to left of washer in laundry closet"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"harness"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Leg steps into each triangle, clips together on back"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"toy_info"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"personality"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Friendly"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"pet_class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Yellow"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"pet_class_notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dog aggressive--avoid other dogs."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"pet_add_ons"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pee"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"completed"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"pet_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5a4f87161a06183b2ffcb4aa"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Poop"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"completed"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"pet_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5a4f87161a06183b2ffcb4aa"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="s2">"food"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"bowl_location"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Kitchen"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"food_treat_location"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dry food in laundry closet. Open canned food in fridge, or new can in laundry."</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"brand_of_food"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"food_instructions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1 cup dry food a.m., 1.5 cup dry p.m. Add 3 TBSP canned food to dry."</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"water_instructions"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"treat_info"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Treats above dry food."</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"medical"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"allergies"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"fixed"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"medications"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"vet"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"full_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Nick's Veterinary Hospital"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"address_line_2"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NC"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"contact"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Abbie"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Example"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"full_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Abbie Example"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example@gmail.com"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"phone_numbers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5619209516"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mobile"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"home"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"address_line_1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1829 Logie Ave"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"address_line_2"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Charlotte"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NC"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"zip_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"28205"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"map_image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://waggle-keys-stage.s3.amazonaws.com/undefined"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"street_view_image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://waggle-keys-stage.s3.amazonaws.com/undefined"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"coordinates"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">35.22264513423151</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">-80.7987217</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"enforce_device_within_region"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"tz_locale"</span><span class="p">:</span><span class="w"> </span><span class="s2">"America/New_York"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"alarm_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Disarm: 0212212316. Arm: Arm+Bypass All+Away. Alarm is on left as you walk in front door."</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"parking"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"home_access_notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Owner's lockbox on front door handle. CODE: 2323914, press top button down and pull toward you. Enter code again to close box. Enter home through front door."</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"home_class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Green"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"home_class_notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"waste_disposal"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Garbage bin in driveway."</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"secured_yard"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Yes"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"apartment_info"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Brinkley pulls for squirrels."</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>End a visit. This is a multipart-formdata request that includes two files. The first is named <code>kml</code> and is a .kml file of where the visit took place. The second is named <code>raw_location_dump</code>, and is a .csv of the raw locations generated during the walk.</p>
+<h3 id='http-request-6'>HTTP Request</h3>
+<p><code>POST http://example.com/sitter/appointments/&lt;AppointmentId&gt;/end</code></p>
+<h2 id='update-appointment-notes'>Update Appointment Notes</h2>
+<blockquote>
+<p>Request body includes sitter notes to admin, and sitter notes to client.</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"sitter_notes_to_client"</span><span class="p">:</span><span class="w"> </span><span class="s2">"We had a great time on our visit today! Your dog is hilarious. Etc Etc Etc."</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"sitter_notes_to_admin"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dog is slightly aggressive towards other dogs."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Returns same appointment json as GET single visit.</p>
+</blockquote>
+
+<p>Setting notes for an appointment. This can happen during an in-progress visit, or within ten minutes after the visit is ended.</p>
+<h3 id='http-request-7'>HTTP Request</h3>
+<p><code>PUT http://example.com/sitter/appointments/&lt;AppointmentId&gt;/notes</code></p>
+<h2 id='add-appointment-images'>Add Appointment Images</h2>
+<blockquote>
+<p>Request body includes keys for image url and favorite:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.amazonaws.ours3bucket.com/1234u909jdlkj.jpeg"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"favorite"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Returns an array of the appointment images:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5dk09jdklkd902jk"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.amazonaws.ours3bucket.com/1234u909jdlkj.jpeg"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"favorite"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">    
+    </span><span class="p">},</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5dk09jdklkd902jefsdf"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.amazonaws.ours3bucket.com/2jlkd929090sd93.jpeg"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"favorite"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">  
+    </span><span class="p">},</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Images are uploaded directly to S3. This route updates the visit with the URL of the image in S3. It also includes a key <code>favorite</code> to indicate if the image is the best image from the visit.</p>
 <h1 id='errors'>Errors</h1>
-<aside class="notice">This error section is stored in a separate file in `includes/_errors.md`. Slate allows you to optionally separate out your docs into many files...just save them to the `includes` folder and add them to the top of your `index.md`'s frontmatter. Files are included in the order listed.</aside>
+<aside class="notice">
+This error section is stored in a separate file in <code>includes/_errors.md</code>. Slate allows you to optionally separate out your docs into many files...just save them to the <code>includes</code> folder and add them to the top of your <code>index.md</code>'s frontmatter. Files are included in the order listed.
+</aside>
 
 <p>The Kittn API uses the following error codes:</p>
 
@@ -445,7 +824,7 @@ Remember — a happy kitten is an authenticated kitten!
 </thead><tbody>
 <tr>
 <td>400</td>
-<td>Bad Request -- Your request sucks.</td>
+<td>Bad Request -- Your request is invalid.</td>
 </tr>
 <tr>
 <td>401</td>
@@ -492,10 +871,7 @@ Remember — a happy kitten is an authenticated kitten!
       </div>
       <div class="dark-box">
           <div class="lang-selector">
-                <a href="#" data-language-name="shell">shell</a>
-                <a href="#" data-language-name="ruby">ruby</a>
-                <a href="#" data-language-name="python">python</a>
-                <a href="#" data-language-name="javascript">javascript</a>
+                <a href="#" data-language-name="json">json</a>
           </div>
       </div>
     </div>
