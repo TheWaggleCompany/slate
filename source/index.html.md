@@ -192,6 +192,154 @@ Status ID | Name
 6 | Rejected
 7 | Canceled
 
+## Get Single Appointment
+
+> Response body includes all information needed for visit, including client contact & pet information. This is the same information returned in the start & end operations.
+
+```json
+{
+    "id": "5aafb04f580d62e1145990a5",
+    "show_survey": false,
+    "appointment_status": {
+        "name": "Pending",
+        "id": 1
+    },
+    "appointment_type": {
+        "id": 8,
+        "name": "Consultation",
+        "duration_in_minutes": 30
+    },
+    "admin_notes": "5019209816 ",
+    "visit_routine": "Walk Brinkley for entire visit to burn as much energy as possible.",
+    "duration_in_minutes": 30,
+    "sitter_viewed": true,
+    "addons": [],
+    "scheduled_start_time": "2018-03-19T12:36:00.000Z",
+    "window_start_time": "2018-03-19T14:00:00.000Z",
+    "window_end_time": "2018-03-19T15:00:00.000Z",
+    "kml": null,
+    "requires_tracking": true,
+    "appointment_images": [],
+    "client_images": [
+        {
+            "id": "5ab2fe3d7f9ff30014591012",
+            "image_url": "https://waggle-keys-stage.s3.amazonaws.com/56aca046-f979-4e0f-a71b-98a8e9a970a6.jpeg"
+        },
+        {
+            "id": "5ab303ad4262910014aa3474",
+            "image_url": "https://waggle-keys-stage.s3.amazonaws.com/ff8c5873-2b87-41ce-a030-9f21d4c20515.jpg"
+        },
+        {
+            "id": "5ab308cc512bb90014544f60",
+            "image_url": "https://waggle-keys-stage.s3.amazonaws.com/ff8c5873-2b87-41ce-a030-9f21d4c20515.jpg"
+        },
+        {
+            "id": "5ab3111934b8380014e1115f",
+            "image_url": "https://waggle-keys-stage.s3.amazonaws.com/15277E3F-86DE-46A9-A282-42AFE050DB78-5596-000006549798FCC1.jpeg"
+        }
+    ],
+    "sitter_full_name": "Luke Griffith",
+    "pets": [
+        {
+            "id": "5a4f87161a06183b2ffcb4aa",
+            "name": "Brinkley",
+            "animal_type": "Dog",
+            "size": "L (50-80)",
+            "image_url": "https://waggle-keys-stage.s3.amazonaws.com/ff8c5873-2b87-41ce-a030-9f21d4c20515.jpg",
+            "breed": "Blue Tick Coon Hound Mix",
+            "gender": "Neutered Male",
+            "age": "Senior (>7 years)",
+            "color": "Black and Brown",
+            "weight": null,
+            "litterbox": "",
+            "pet_location": "Free roaming",
+            "leash_collar": "Leash/harness hanging to left of washer in laundry closet",
+            "harness": "Leg steps into each triangle, clips together on back",
+            "toy_info": "",
+            "personality": "Friendly",
+            "pet_class": "Yellow",
+            "pet_class_notes": "Dog aggressive--avoid other dogs.",
+            "pet_add_ons": [
+                {
+                    "id": 1,
+                    "name": "Pee",
+                    "completed": false,
+                    "pet_id": "5a4f87161a06183b2ffcb4aa"
+                },
+                {
+                    "id": 2,
+                    "name": "Poop",
+                    "completed": false,
+                    "pet_id": "5a4f87161a06183b2ffcb4aa"
+                }
+            ],
+            "food": {
+                "bowl_location": "Kitchen",
+                "food_treat_location": "Dry food in laundry closet. Open canned food in fridge, or new can in laundry.",
+                "brand_of_food": "",
+                "food_instructions": "1 cup dry food a.m., 1.5 cup dry p.m. Add 3 TBSP canned food to dry.",
+                "water_instructions": "",
+                "treat_info": "Treats above dry food."
+            },
+            "medical": {
+                "allergies": "",
+                "fixed": null,
+                "medications": []
+            },
+            "vet": {
+                "full_name": "Nick's Veterinary Hospital",
+                "address_line_2": null,
+                "state": "NC"
+            }
+        }
+    ],
+    "contact": {
+        "first_name": "Abbie",
+        "last_name": "Example",
+        "full_name": "Abbie Example",
+        "email": "example@gmail.com",
+        "phone_numbers": [
+            {
+                "number": "5619209516",
+                "type": "mobile"
+            }
+        ]
+    },
+    "home": {
+        "address": {
+            "address_line_1": "1829 Logie Ave",
+            "address_line_2": "",
+            "city": "Charlotte",
+            "state": "NC",
+            "zip_code": "28205",
+            "map_image_url": "https://waggle-keys-stage.s3.amazonaws.com/undefined",
+            "street_view_image_url": "https://waggle-keys-stage.s3.amazonaws.com/undefined",
+            "coordinates": {
+                "latitude": 35.22264513423151,
+                "longitude": -80.7987217
+            },
+            "enforce_device_within_region": true
+        },
+        "tz_locale": "America/New_York",
+        "alarm_code": "Disarm: 0212212316. Arm: Arm+Bypass All+Away. Alarm is on left as you walk in front door.",
+        "parking": "",
+        "home_access_notes": "Owner's lockbox on front door handle. CODE: 2323914, press top button down and pull toward you. Enter code again to close box. Enter home through front door.",
+        "home_class": "Green",
+        "home_class_notes": "",
+        "waste_disposal": "Garbage bin in driveway.",
+        "secured_yard": "Yes",
+        "apartment_info": "",
+        "notes": "Brinkley pulls for squirrels."
+    }
+}
+```
+
+Get all the information for a single visit.
+
+### HTTP Request
+
+`GET http://example.com/sitter/appointments/<appointmentId>`
+
 ## Start an Appointment
 
 > Starting visit accepts three keys, but none are required. They tell the API whether or not the visit was started out of proper GPS range, and pass in the coordinates if true.
@@ -560,3 +708,94 @@ Setting notes for an appointment. This can happen during an in-progress visit, o
 ```
 
 Images are uploaded directly to S3. This route updates the visit with the URL of the image in S3. It also includes a key `favorite` to indicate if the image is the best image from the visit.
+
+### HTTP Request
+
+`POST http://example.com/sitter/appointments/<appointmentId>/images`
+
+## Add Client Images
+
+> Request body includes image url
+
+```json
+{
+  "image_url": "https://s3.amazonaws.ours3bucket.com/2jlkd929090sd93.jpeg"
+}
+```
+
+> Response includes url and id from DB
+
+```json
+{
+  "image_url": "https://s3.amazonaws.ours3bucket.com/2jlkd929090sd93.jpeg",
+  "id": "5ajkd9ijldk2jlkjd09lk"
+}
+```
+Images are uploaded directly to S3.
+
+### HTTP Request
+
+`POST http://example.com/sitter/appointments/<appointmentId>/clientImages`
+
+## Add Pet Images
+
+> Request body includes image url
+
+```json
+{
+  "image_url": "https://s3.amazonaws.ours3bucket.com/2jlkd929090sd93.jpeg"
+}
+```
+
+> Response includes url and id from DB
+
+```json
+{
+  "image_url": "https://s3.amazonaws.ours3bucket.com/2jlkd929090sd93.jpeg",
+  "id": "5ajkd9ijldk2jlkjd09lk"
+}
+```
+These are pet-specific images, to be used as a pet's 'profile' picture. Images are uploaded directly to S3.
+
+### HTTP Request
+
+`POST http://example.com/sitter/pets/<petId>/images`
+
+## Delete Appointment Image
+
+> Successful response is an object with message 'Image deleted.':
+
+```json
+{
+  "message": "Image Deleted."
+}
+```
+
+Delete a specific image for a visit.
+
+### HTTP Request
+
+`DELETE http://example.com/sitter/appointments/<appointmentId>/images/<imageId>`
+
+## Edit Appointment Image
+
+> Request body currently is only key of favorite true/false:
+
+```json
+{
+  "favorite": true
+}
+```
+> Returns image object:
+
+```json
+{
+  "id": "5jk90ljkddkjlkjs",
+  "image_url": "https://s3.amazonaws.ours3bucket.com/2jlkd929090sd93.jpeg",
+  "favorite": true
+}
+```
+
+### HTTP Request
+
+`PUT http://example.com/sitter/appointments/<appointmentId>/images/<imageId>`
