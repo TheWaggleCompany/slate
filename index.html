@@ -240,6 +240,9 @@
                     <a href="#get-list-of-appointments" class="toc-h2 toc-link" data-title="get-list-of-appointments">Get List of Appointments</a>
                   </li>
                   <li>
+                    <a href="#get-single-appointment" class="toc-h2 toc-link" data-title="get-single-appointment">Get Single Appointment</a>
+                  </li>
+                  <li>
                     <a href="#start-an-appointment" class="toc-h2 toc-link" data-title="start-an-appointment">Start an Appointment</a>
                   </li>
                   <li>
@@ -250,6 +253,18 @@
                   </li>
                   <li>
                     <a href="#add-appointment-images" class="toc-h2 toc-link" data-title="add-appointment-images">Add Appointment Images</a>
+                  </li>
+                  <li>
+                    <a href="#add-client-images" class="toc-h2 toc-link" data-title="add-client-images">Add Client Images</a>
+                  </li>
+                  <li>
+                    <a href="#add-pet-images" class="toc-h2 toc-link" data-title="add-pet-images">Add Pet Images</a>
+                  </li>
+                  <li>
+                    <a href="#delete-appointment-image" class="toc-h2 toc-link" data-title="delete-appointment-image">Delete Appointment Image</a>
+                  </li>
+                  <li>
+                    <a href="#edit-appointment-image" class="toc-h2 toc-link" data-title="edit-appointment-image">Edit Appointment Image</a>
                   </li>
               </ul>
           </li>
@@ -450,6 +465,149 @@
 <td>Canceled</td>
 </tr>
 </tbody></table>
+<h2 id='get-single-appointment'>Get Single Appointment</h2>
+<blockquote>
+<p>Response body includes all information needed for visit, including client contact &amp; pet information. This is the same information returned in the start &amp; end operations.</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5aafb04f580d62e1145990a5"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"show_survey"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"appointment_status"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pending"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"appointment_type"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Consultation"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"duration_in_minutes"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"admin_notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5019209816 "</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"visit_routine"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Walk Brinkley for entire visit to burn as much energy as possible."</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"duration_in_minutes"</span><span class="p">:</span><span class="w"> </span><span class="mi">30</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"sitter_viewed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"addons"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="s2">"scheduled_start_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-03-19T12:36:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"window_start_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-03-19T14:00:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"window_end_time"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2018-03-19T15:00:00.000Z"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"kml"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"requires_tracking"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"appointment_images"</span><span class="p">:</span><span class="w"> </span><span class="p">[],</span><span class="w">
+    </span><span class="s2">"client_images"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ab2fe3d7f9ff30014591012"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://waggle-keys-stage.s3.amazonaws.com/56aca046-f979-4e0f-a71b-98a8e9a970a6.jpeg"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ab303ad4262910014aa3474"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://waggle-keys-stage.s3.amazonaws.com/ff8c5873-2b87-41ce-a030-9f21d4c20515.jpg"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ab308cc512bb90014544f60"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://waggle-keys-stage.s3.amazonaws.com/ff8c5873-2b87-41ce-a030-9f21d4c20515.jpg"</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ab3111934b8380014e1115f"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://waggle-keys-stage.s3.amazonaws.com/15277E3F-86DE-46A9-A282-42AFE050DB78-5596-000006549798FCC1.jpeg"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"sitter_full_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Luke Griffith"</span><span class="p">,</span><span class="w">
+    </span><span class="s2">"pets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5a4f87161a06183b2ffcb4aa"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Brinkley"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"animal_type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dog"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"size"</span><span class="p">:</span><span class="w"> </span><span class="s2">"L (50-80)"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://waggle-keys-stage.s3.amazonaws.com/ff8c5873-2b87-41ce-a030-9f21d4c20515.jpg"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"breed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Blue Tick Coon Hound Mix"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"gender"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Neutered Male"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"age"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Senior (&gt;7 years)"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"color"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Black and Brown"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"weight"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"litterbox"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"pet_location"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Free roaming"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"leash_collar"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Leash/harness hanging to left of washer in laundry closet"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"harness"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Leg steps into each triangle, clips together on back"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"toy_info"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"personality"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Friendly"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"pet_class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Yellow"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"pet_class_notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dog aggressive--avoid other dogs."</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"pet_add_ons"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pee"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"completed"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"pet_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5a4f87161a06183b2ffcb4aa"</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                    </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Poop"</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"completed"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+                    </span><span class="s2">"pet_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5a4f87161a06183b2ffcb4aa"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+            </span><span class="p">],</span><span class="w">
+            </span><span class="s2">"food"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"bowl_location"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Kitchen"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"food_treat_location"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Dry food in laundry closet. Open canned food in fridge, or new can in laundry."</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"brand_of_food"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"food_instructions"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1 cup dry food a.m., 1.5 cup dry p.m. Add 3 TBSP canned food to dry."</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"water_instructions"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"treat_info"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Treats above dry food."</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"medical"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"allergies"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"fixed"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"medications"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"vet"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"full_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Nick's Veterinary Hospital"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"address_line_2"</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NC"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="s2">"contact"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"first_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Abbie"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"last_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Example"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"full_name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Abbie Example"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"example@gmail.com"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"phone_numbers"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"number"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5619209516"</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"mobile"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="s2">"home"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="s2">"address"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="s2">"address_line_1"</span><span class="p">:</span><span class="w"> </span><span class="s2">"1829 Logie Ave"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"address_line_2"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"city"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Charlotte"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NC"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"zip_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"28205"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"map_image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://waggle-keys-stage.s3.amazonaws.com/undefined"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"street_view_image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://waggle-keys-stage.s3.amazonaws.com/undefined"</span><span class="p">,</span><span class="w">
+            </span><span class="s2">"coordinates"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="s2">"latitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">35.22264513423151</span><span class="p">,</span><span class="w">
+                </span><span class="s2">"longitude"</span><span class="p">:</span><span class="w"> </span><span class="mf">-80.7987217</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="s2">"enforce_device_within_region"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="s2">"tz_locale"</span><span class="p">:</span><span class="w"> </span><span class="s2">"America/New_York"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"alarm_code"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Disarm: 0212212316. Arm: Arm+Bypass All+Away. Alarm is on left as you walk in front door."</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"parking"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"home_access_notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Owner's lockbox on front door handle. CODE: 2323914, press top button down and pull toward you. Enter code again to close box. Enter home through front door."</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"home_class"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Green"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"home_class_notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"waste_disposal"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Garbage bin in driveway."</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"secured_yard"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Yes"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"apartment_info"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"notes"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Brinkley pulls for squirrels."</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Get all the information for a single visit.</p>
+<h3 id='http-request-5'>HTTP Request</h3>
+<p><code>GET http://example.com/sitter/appointments/&lt;appointmentId&gt;</code></p>
 <h2 id='start-an-appointment'>Start an Appointment</h2>
 <blockquote>
 <p>Starting visit accepts three keys, but none are required. They tell the API whether or not the visit was started out of proper GPS range, and pass in the coordinates if true.</p>
@@ -600,7 +758,7 @@
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>Start a visit. In order to start, the visit must have the status of &#39;Approved&#39;, and the team member must be within the time window.</p>
-<h3 id='http-request-5'>HTTP Request</h3>
+<h3 id='http-request-6'>HTTP Request</h3>
 <p><code>PUT http://example.com/sitter/appointments/&lt;AppointmentId&gt;/start</code></p>
 <h2 id='end-an-appointment'>End an Appointment</h2>
 <blockquote>
@@ -755,7 +913,7 @@
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>End a visit. This is a multipart-formdata request that includes two files. The first is named <code>kml</code> and is a .kml file of where the visit took place. The second is named <code>raw_location_dump</code>, and is a .csv of the raw locations generated during the walk.</p>
-<h3 id='http-request-6'>HTTP Request</h3>
+<h3 id='http-request-7'>HTTP Request</h3>
 <p><code>POST http://example.com/sitter/appointments/&lt;AppointmentId&gt;/end</code></p>
 <h2 id='update-appointment-notes'>Update Appointment Notes</h2>
 <blockquote>
@@ -771,7 +929,7 @@
 </blockquote>
 
 <p>Setting notes for an appointment. This can happen during an in-progress visit, or within ten minutes after the visit is ended.</p>
-<h3 id='http-request-7'>HTTP Request</h3>
+<h3 id='http-request-8'>HTTP Request</h3>
 <p><code>PUT http://example.com/sitter/appointments/&lt;AppointmentId&gt;/notes</code></p>
 <h2 id='add-appointment-images'>Add Appointment Images</h2>
 <blockquote>
@@ -801,6 +959,75 @@
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>Images are uploaded directly to S3. This route updates the visit with the URL of the image in S3. It also includes a key <code>favorite</code> to indicate if the image is the best image from the visit.</p>
+<h3 id='http-request-9'>HTTP Request</h3>
+<p><code>POST http://example.com/sitter/appointments/&lt;appointmentId&gt;/images</code></p>
+<h2 id='add-client-images'>Add Client Images</h2>
+<blockquote>
+<p>Request body includes image url</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.amazonaws.ours3bucket.com/2jlkd929090sd93.jpeg"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Response includes url and id from DB</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.amazonaws.ours3bucket.com/2jlkd929090sd93.jpeg"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ajkd9ijldk2jlkjd09lk"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Images are uploaded directly to S3.</p>
+<h3 id='http-request-10'>HTTP Request</h3>
+<p><code>POST http://example.com/sitter/appointments/&lt;appointmentId&gt;/clientImages</code></p>
+<h2 id='add-pet-images'>Add Pet Images</h2>
+<blockquote>
+<p>Request body includes image url</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.amazonaws.ours3bucket.com/2jlkd929090sd93.jpeg"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Response includes url and id from DB</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.amazonaws.ours3bucket.com/2jlkd929090sd93.jpeg"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5ajkd9ijldk2jlkjd09lk"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>These are pet-specific images, to be used as a pet&#39;s &#39;profile&#39; picture. Images are uploaded directly to S3.</p>
+<h3 id='http-request-11'>HTTP Request</h3>
+<p><code>POST http://example.com/sitter/pets/&lt;petId&gt;/images</code></p>
+<h2 id='delete-appointment-image'>Delete Appointment Image</h2>
+<blockquote>
+<p>Successful response is an object with message &#39;Image deleted.&#39;:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Image Deleted."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>Delete a specific image for a visit.</p>
+<h3 id='http-request-12'>HTTP Request</h3>
+<p><code>DELETE http://example.com/sitter/appointments/&lt;appointmentId&gt;/images/&lt;imageId&gt;</code></p>
+<h2 id='edit-appointment-image'>Edit Appointment Image</h2>
+<blockquote>
+<p>Request body currently is only key of favorite true/false:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"favorite"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<blockquote>
+<p>Returns image object:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5jk90ljkddkjlkjs"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"image_url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://s3.amazonaws.ours3bucket.com/2jlkd929090sd93.jpeg"</span><span class="p">,</span><span class="w">
+  </span><span class="s2">"favorite"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre><h3 id='http-request-13'>HTTP Request</h3>
+<p><code>PUT http://example.com/sitter/appointments/&lt;appointmentId&gt;/images/&lt;imageId&gt;</code></p>
 
       </div>
       <div class="dark-box">
