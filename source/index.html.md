@@ -799,3 +799,19 @@ Delete a specific image for a visit.
 ### HTTP Request
 
 `PUT http://example.com/sitter/appointments/<appointmentId>/images/<imageId>`
+
+## Complete/Uncomplete Add-On
+
+> Request body includes an array of addOns:
+
+```json
+{
+  "addOns": [{"id": 2, "name": "Pee", "completed": true, "pet_id": "5a4f87201a06183b2ffcb532"}]
+}
+```
+
+This will complete or un-complete an appointment add-on. The array should include the add-on id, whether or not the add-on is completed, add the pet_id, if applicable.
+
+### HTTP Request
+
+`PUT http://example.com/sitter/appointments/<appointmentId>/addOns`
