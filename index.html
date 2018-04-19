@@ -266,6 +266,9 @@
                   <li>
                     <a href="#edit-appointment-image" class="toc-h2 toc-link" data-title="edit-appointment-image">Edit Appointment Image</a>
                   </li>
+                  <li>
+                    <a href="#complete-uncomplete-add-on" class="toc-h2 toc-link" data-title="complete-uncomplete-add-on">Complete/Uncomplete Add-On</a>
+                  </li>
               </ul>
           </li>
       </div>
@@ -1028,6 +1031,17 @@
 </span><span class="p">}</span><span class="w">
 </span></code></pre><h3 id='http-request-13'>HTTP Request</h3>
 <p><code>PUT http://example.com/sitter/appointments/&lt;appointmentId&gt;/images/&lt;imageId&gt;</code></p>
+<h2 id='complete-uncomplete-add-on'>Complete/Uncomplete Add-On</h2>
+<blockquote>
+<p>Request body includes an array of addOns:</p>
+</blockquote>
+<pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="s2">"addOns"</span><span class="p">:</span><span class="w"> </span><span class="p">[{</span><span class="s2">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="s2">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Pee"</span><span class="p">,</span><span class="w"> </span><span class="s2">"completed"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w"> </span><span class="s2">"pet_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5a4f87201a06183b2ffcb532"</span><span class="p">}]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre>
+<p>This will complete or un-complete an appointment add-on. The array should include the add-on id, whether or not the add-on is completed, add the pet_id, if applicable.</p>
+<h3 id='http-request-14'>HTTP Request</h3>
+<p><code>PUT http://example.com/sitter/appointments/&lt;appointmentId&gt;/addOns</code></p>
 
       </div>
       <div class="dark-box">
