@@ -2,238 +2,816 @@
 title: API Reference
 
 language_tabs: # must be one of https://git.io/vQNgJ
-  - shell
-  - ruby
-  - python
-  - javascript
+  - json
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
   - <a href='https://github.com/lord/slate'>Documentation Powered by Slate</a>
-
-includes:
-  - errors
 
 search: true
 ---
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
-
-We have language bindings in Shell, Ruby, and Python! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
-
-This example API documentation page was created with [Slate](https://github.com/lord/slate). Feel free to edit it and use it as a base for your own API's documentation.
+Welcome to the Waggle API! Here you fill find info on using our API for the client, admin, and team member applications.
 
 # Authentication
 
-> To authorize, use this code:
+All authentication is handled by a Firebase JWT, passed in as an auth header, such as `Authorization: Bearer eyfj123...` . All endpoints require this authentication.
 
-```ruby
-require 'kittn'
+# Team Member Endpoints
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
+## Device Tokens
+
+This endpoint handles refreshing the user's device token.
+
+### HTTP Request
+
+`POST http://example.com/sitter/device-token`
+
+### Request Body
+
+Key | Required | Description
+--------- | ------- | -----------
+device_token | true | the user's new device token
+
+## Get Team Member Profile
+
+> Team member profile returns JSON like this:
+
+```json
+{
+      "address": {
+        "address_line_1": "809 West Hill St",
+        "address_line_2": "Unit B",
+        "city": "Charlotte",
+        "state": "NC",
+        "zip_code": "28202"
+      },
+      "secondary_address": {
+        "address_line_1": "12424 Agate Ln.",
+        "address_line_2": null,
+        "city": "Pineville",
+        "state": "NC",
+        "zip_code": "28134"
+      },
+      "use_secondary_for_routing": true
+    }
 ```
 
-```python
-import kittn
+This endpoint retrieves the team member's profile.
 
-api = kittn.authorize('meowmeowmeow')
+### HTTP Request
+
+`GET http://example.com/sitter/profile`
+
+
+## Update Team Member Profile
+
+> Update TM profile both accepts & returns JSON structured like this:
+
+```json
+{
+      "address": {
+        "address_line_1": "809 West Hill St",
+        "address_line_2": "Unit B",
+        "city": "Charlotte",
+        "state": "NC",
+        "zip_code": "28202"
+      },
+      "secondary_address": {
+        "address_line_1": "12424 Agate Ln.",
+        "address_line_2": null,
+        "city": "Pineville",
+        "state": "NC",
+        "zip_code": "28134"
+      },
+      "use_secondary_for_routing": true
+    }
 ```
 
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here"
-  -H "Authorization: meowmeowmeow"
-```
+This endpoint updates a team member profile. The `use_secondary_for_routing` key is whether or not the team member's starting location will be calculated using their secondary address.
 
-```javascript
-const kittn = require('kittn');
+### HTTP Request
 
-let api = kittn.authorize('meowmeowmeow');
-```
+`PUT http://example.com/sitter/profile`
 
-> Make sure to replace `meowmeowmeow` with your API key.
+## Get List of Appointments
 
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-
-# Kittens
-
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
-
-```shell
-curl "http://example.com/api/kittens"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
-```
-
-> The above command returns JSON structured like this:
+> Returns an array of appointment objects:
 
 ```json
 [
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
-  }
+
+    {
+        "createdAt": "2018-01-15T09:52:44.396Z",
+        "id": "5a5c79ecac24280014d01006",
+        "appointment_status": {
+            "id": 4,
+            "name": "In Progress"
+        },
+        "scheduled_start_time": "2018-03-23T15:30:00.000Z",
+        "window_start_time": "2018-03-23T15:30:00.000Z",
+        "window_end_time": "2018-03-23T17:00:00.000Z",
+        "appointment_type": "10 Min Visit",
+        "duration_in_minutes": 10,
+        "sitter_viewed": true,
+        "pets": [
+            {
+                "id": "5a4f87441a06183b2ffcb6ec",
+                "name": "Fenway",
+                "image_url": "https://waggle-keys-stage.s3.amazonaws.com/939abdc3-fcac-4695-b1e9-2bbf136d320f.jpeg",
+                "pet_class": "Green"
+            },
+            {
+                "id": "5a4f87431a06183b2ffcb6eb",
+                "name": "Bryce",
+                "image_url": "https://waggle-keys-stage.s3.amazonaws.com/58305fa2-65fa-432d-b772-51b923a50c82.jpeg",
+                "pet_class": "Green"
+            }
+        ],
+        "home": {
+            "home_class": "Green",
+            "tz_locale": "America/New_York",
+            "address": {
+                "enforce_device_within_region": true
+            }
+        }
+    },
+    {
+        "createdAt": "2018-01-15T09:52:44.393Z",
+        "id": "5a5c79ebac24280014d01003",
+        "appointment_status": {
+            "id": 5,
+            "name": "Completed"
+        },
+        "scheduled_start_time": "2018-03-20T15:30:00.000Z",
+        "actual_start_time": "2018-03-20T14:07:23.864Z",
+        "window_start_time": "2018-03-20T15:30:00.000Z",
+        "window_end_time": "2018-03-20T17:00:00.000Z",
+        "appointment_type": "10 Min Visit",
+        "duration_in_minutes": 10,
+        "sitter_viewed": true,
+        "pets": [
+            {
+                "id": "5a4f87441a06183b2ffcb6ec",
+                "name": "Fenway",
+                "image_url": "https://waggle-keys-stage.s3.amazonaws.com/939abdc3-fcac-4695-b1e9-2bbf136d320f.jpeg",
+                "pet_class": "Green"
+            },
+            {
+                "id": "5a4f87431a06183b2ffcb6eb",
+                "name": "Bryce",
+                "image_url": "https://waggle-keys-stage.s3.amazonaws.com/58305fa2-65fa-432d-b772-51b923a50c82.jpeg",
+                "pet_class": "Green"
+            }
+        ],
+        "home": {
+            "home_class": "Green",
+            "tz_locale": "America/New_York",
+            "address": {
+                "enforce_device_within_region": true
+            }
+        }
+    },
 ]
+
 ```
-
-This endpoint retrieves all kittens.
-
 ### HTTP Request
 
-`GET http://example.com/api/kittens`
+`GET http://example.com/sitter/appointments`
 
-### Query Parameters
+### List of Appointment Statuses
 
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+Status ID | Name
+--------- | -------
+1 | Pending
+2 | Approved
+3 | Change Requested
+4 | In Progress
+5 | Completed
+6 | Rejected
+7 | Canceled
 
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
+## Get Single Appointment
 
-## Get a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2"
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
-```
-
-> The above command returns JSON structured like this:
+> Response body includes all information needed for visit, including client contact & pet information. This is the same information returned in the start & end operations.
 
 ```json
 {
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+    "id": "5aafb04f580d62e1145990a5",
+    "show_survey": false,
+    "appointment_status": {
+        "name": "Pending",
+        "id": 1
+    },
+    "appointment_type": {
+        "id": 8,
+        "name": "Consultation",
+        "duration_in_minutes": 30
+    },
+    "admin_notes": "5019209816 ",
+    "visit_routine": "Walk Brinkley for entire visit to burn as much energy as possible.",
+    "duration_in_minutes": 30,
+    "sitter_viewed": true,
+    "addons": [],
+    "scheduled_start_time": "2018-03-19T12:36:00.000Z",
+    "window_start_time": "2018-03-19T14:00:00.000Z",
+    "window_end_time": "2018-03-19T15:00:00.000Z",
+    "kml": null,
+    "requires_tracking": true,
+    "appointment_images": [],
+    "client_images": [
+        {
+            "id": "5ab2fe3d7f9ff30014591012",
+            "image_url": "https://waggle-keys-stage.s3.amazonaws.com/56aca046-f979-4e0f-a71b-98a8e9a970a6.jpeg"
+        },
+        {
+            "id": "5ab303ad4262910014aa3474",
+            "image_url": "https://waggle-keys-stage.s3.amazonaws.com/ff8c5873-2b87-41ce-a030-9f21d4c20515.jpg"
+        },
+        {
+            "id": "5ab308cc512bb90014544f60",
+            "image_url": "https://waggle-keys-stage.s3.amazonaws.com/ff8c5873-2b87-41ce-a030-9f21d4c20515.jpg"
+        },
+        {
+            "id": "5ab3111934b8380014e1115f",
+            "image_url": "https://waggle-keys-stage.s3.amazonaws.com/15277E3F-86DE-46A9-A282-42AFE050DB78-5596-000006549798FCC1.jpeg"
+        }
+    ],
+    "sitter_full_name": "Luke Griffith",
+    "pets": [
+        {
+            "id": "5a4f87161a06183b2ffcb4aa",
+            "name": "Brinkley",
+            "animal_type": "Dog",
+            "size": "L (50-80)",
+            "image_url": "https://waggle-keys-stage.s3.amazonaws.com/ff8c5873-2b87-41ce-a030-9f21d4c20515.jpg",
+            "breed": "Blue Tick Coon Hound Mix",
+            "gender": "Neutered Male",
+            "age": "Senior (>7 years)",
+            "color": "Black and Brown",
+            "weight": null,
+            "litterbox": "",
+            "pet_location": "Free roaming",
+            "leash_collar": "Leash/harness hanging to left of washer in laundry closet",
+            "harness": "Leg steps into each triangle, clips together on back",
+            "toy_info": "",
+            "personality": "Friendly",
+            "pet_class": "Yellow",
+            "pet_class_notes": "Dog aggressive--avoid other dogs.",
+            "pet_add_ons": [
+                {
+                    "id": 1,
+                    "name": "Pee",
+                    "completed": false,
+                    "pet_id": "5a4f87161a06183b2ffcb4aa"
+                },
+                {
+                    "id": 2,
+                    "name": "Poop",
+                    "completed": false,
+                    "pet_id": "5a4f87161a06183b2ffcb4aa"
+                }
+            ],
+            "food": {
+                "bowl_location": "Kitchen",
+                "food_treat_location": "Dry food in laundry closet. Open canned food in fridge, or new can in laundry.",
+                "brand_of_food": "",
+                "food_instructions": "1 cup dry food a.m., 1.5 cup dry p.m. Add 3 TBSP canned food to dry.",
+                "water_instructions": "",
+                "treat_info": "Treats above dry food."
+            },
+            "medical": {
+                "allergies": "",
+                "fixed": null,
+                "medications": []
+            },
+            "vet": {
+                "full_name": "Nick's Veterinary Hospital",
+                "address_line_2": null,
+                "state": "NC"
+            }
+        }
+    ],
+    "contact": {
+        "first_name": "Abbie",
+        "last_name": "Example",
+        "full_name": "Abbie Example",
+        "email": "example@gmail.com",
+        "phone_numbers": [
+            {
+                "number": "5619209516",
+                "type": "mobile"
+            }
+        ]
+    },
+    "home": {
+        "address": {
+            "address_line_1": "1829 Logie Ave",
+            "address_line_2": "",
+            "city": "Charlotte",
+            "state": "NC",
+            "zip_code": "28205",
+            "map_image_url": "https://waggle-keys-stage.s3.amazonaws.com/undefined",
+            "street_view_image_url": "https://waggle-keys-stage.s3.amazonaws.com/undefined",
+            "coordinates": {
+                "latitude": 35.22264513423151,
+                "longitude": -80.7987217
+            },
+            "enforce_device_within_region": true
+        },
+        "tz_locale": "America/New_York",
+        "alarm_code": "Disarm: 0212212316. Arm: Arm+Bypass All+Away. Alarm is on left as you walk in front door.",
+        "parking": "",
+        "home_access_notes": "Owner's lockbox on front door handle. CODE: 2323914, press top button down and pull toward you. Enter code again to close box. Enter home through front door.",
+        "home_class": "Green",
+        "home_class_notes": "",
+        "waste_disposal": "Garbage bin in driveway.",
+        "secured_yard": "Yes",
+        "apartment_info": "",
+        "notes": "Brinkley pulls for squirrels."
+    }
 }
 ```
 
-This endpoint retrieves a specific kitten.
-
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+Get all the information for a single visit.
 
 ### HTTP Request
 
-`GET http://example.com/kittens/<ID>`
+`GET http://example.com/sitter/appointments/<appointmentId>`
 
-### URL Parameters
+## Start an Appointment
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to retrieve
-
-## Delete a Specific Kitten
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
-```
-
-```shell
-curl "http://example.com/api/kittens/2"
-  -X DELETE
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
-```
-
-> The above command returns JSON structured like this:
+> Starting visit accepts three keys, but none are required. They tell the API whether or not the visit was started out of proper GPS range, and pass in the coordinates if true.
 
 ```json
 {
-  "id": 2,
-  "deleted" : ":("
+  "override_device_within_region": true,
+  "override_start_longitude": 35.1234567,
+  "override_start_latitude": 83.390193
+    }
+```
+
+> Returns the updated visit (same as GET single visit response):
+
+```json
+{
+    "id": "5aafb04f580d62e1145990a5",
+    "show_survey": false,
+    "appointment_status": {
+        "name": "Pending",
+        "id": 1
+    },
+    "appointment_type": {
+        "id": 8,
+        "name": "Consultation",
+        "duration_in_minutes": 30
+    },
+    "admin_notes": "5019209816 ",
+    "visit_routine": "Walk Brinkley for entire visit to burn as much energy as possible.",
+    "duration_in_minutes": 30,
+    "sitter_viewed": true,
+    "addons": [],
+    "scheduled_start_time": "2018-03-19T12:36:00.000Z",
+    "window_start_time": "2018-03-19T14:00:00.000Z",
+    "window_end_time": "2018-03-19T15:00:00.000Z",
+    "kml": null,
+    "requires_tracking": true,
+    "appointment_images": [],
+    "client_images": [
+        {
+            "id": "5ab2fe3d7f9ff30014591012",
+            "image_url": "https://waggle-keys-stage.s3.amazonaws.com/56aca046-f979-4e0f-a71b-98a8e9a970a6.jpeg"
+        },
+        {
+            "id": "5ab303ad4262910014aa3474",
+            "image_url": "https://waggle-keys-stage.s3.amazonaws.com/ff8c5873-2b87-41ce-a030-9f21d4c20515.jpg"
+        },
+        {
+            "id": "5ab308cc512bb90014544f60",
+            "image_url": "https://waggle-keys-stage.s3.amazonaws.com/ff8c5873-2b87-41ce-a030-9f21d4c20515.jpg"
+        },
+        {
+            "id": "5ab3111934b8380014e1115f",
+            "image_url": "https://waggle-keys-stage.s3.amazonaws.com/15277E3F-86DE-46A9-A282-42AFE050DB78-5596-000006549798FCC1.jpeg"
+        }
+    ],
+    "sitter_full_name": "Luke Griffith",
+    "pets": [
+        {
+            "id": "5a4f87161a06183b2ffcb4aa",
+            "name": "Brinkley",
+            "animal_type": "Dog",
+            "size": "L (50-80)",
+            "image_url": "https://waggle-keys-stage.s3.amazonaws.com/ff8c5873-2b87-41ce-a030-9f21d4c20515.jpg",
+            "breed": "Blue Tick Coon Hound Mix",
+            "gender": "Neutered Male",
+            "age": "Senior (>7 years)",
+            "color": "Black and Brown",
+            "weight": null,
+            "litterbox": "",
+            "pet_location": "Free roaming",
+            "leash_collar": "Leash/harness hanging to left of washer in laundry closet",
+            "harness": "Leg steps into each triangle, clips together on back",
+            "toy_info": "",
+            "personality": "Friendly",
+            "pet_class": "Yellow",
+            "pet_class_notes": "Dog aggressive--avoid other dogs.",
+            "pet_add_ons": [
+                {
+                    "id": 1,
+                    "name": "Pee",
+                    "completed": false,
+                    "pet_id": "5a4f87161a06183b2ffcb4aa"
+                },
+                {
+                    "id": 2,
+                    "name": "Poop",
+                    "completed": false,
+                    "pet_id": "5a4f87161a06183b2ffcb4aa"
+                }
+            ],
+            "food": {
+                "bowl_location": "Kitchen",
+                "food_treat_location": "Dry food in laundry closet. Open canned food in fridge, or new can in laundry.",
+                "brand_of_food": "",
+                "food_instructions": "1 cup dry food a.m., 1.5 cup dry p.m. Add 3 TBSP canned food to dry.",
+                "water_instructions": "",
+                "treat_info": "Treats above dry food."
+            },
+            "medical": {
+                "allergies": "",
+                "fixed": null,
+                "medications": []
+            },
+            "vet": {
+                "full_name": "Nick's Veterinary Hospital",
+                "address_line_2": null,
+                "state": "NC"
+            }
+        }
+    ],
+    "contact": {
+        "first_name": "Abbie",
+        "last_name": "Example",
+        "full_name": "Abbie Example",
+        "email": "example@gmail.com",
+        "phone_numbers": [
+            {
+                "number": "5619209516",
+                "type": "mobile"
+            }
+        ]
+    },
+    "home": {
+        "address": {
+            "address_line_1": "1829 Logie Ave",
+            "address_line_2": "",
+            "city": "Charlotte",
+            "state": "NC",
+            "zip_code": "28205",
+            "map_image_url": "https://waggle-keys-stage.s3.amazonaws.com/undefined",
+            "street_view_image_url": "https://waggle-keys-stage.s3.amazonaws.com/undefined",
+            "coordinates": {
+                "latitude": 35.22264513423151,
+                "longitude": -80.7987217
+            },
+            "enforce_device_within_region": true
+        },
+        "tz_locale": "America/New_York",
+        "alarm_code": "Disarm: 0212212316. Arm: Arm+Bypass All+Away. Alarm is on left as you walk in front door.",
+        "parking": "",
+        "home_access_notes": "Owner's lockbox on front door handle. CODE: 2323914, press top button down and pull toward you. Enter code again to close box. Enter home through front door.",
+        "home_class": "Green",
+        "home_class_notes": "",
+        "waste_disposal": "Garbage bin in driveway.",
+        "secured_yard": "Yes",
+        "apartment_info": "",
+        "notes": "Brinkley pulls for squirrels."
+    }
 }
 ```
 
-This endpoint deletes a specific kitten.
+Start a visit. In order to start, the visit must have the status of 'Approved', and the team member must be within the time window.
 
 ### HTTP Request
 
-`DELETE http://example.com/kittens/<ID>`
+`PUT http://example.com/sitter/appointments/<AppointmentId>/start`
 
-### URL Parameters
+## End an Appointment
 
-Parameter | Description
---------- | -----------
-ID | The ID of the kitten to delete
+> Request body includes array of completed visit addons, with a pet id if the addon is pet-specific (like feeding)
 
+```json
+{
+  "completed_addons": [{
+    "id": 1,
+    "name": "Pee",
+    "completed": true,
+    "pet_id": "5a4f87161a06183b2ffcb4aa"
+  }]
+}
+```
+> Returns the updated visit (same as GET single visit response):
+
+```json
+{
+    "id": "5aafb04f580d62e1145990a5",
+    "show_survey": false,
+    "appointment_status": {
+        "name": "Pending",
+        "id": 1
+    },
+    "appointment_type": {
+        "id": 8,
+        "name": "Consultation",
+        "duration_in_minutes": 30
+    },
+    "admin_notes": "5019209816 ",
+    "visit_routine": "Walk Brinkley for entire visit to burn as much energy as possible.",
+    "duration_in_minutes": 30,
+    "sitter_viewed": true,
+    "addons": [],
+    "scheduled_start_time": "2018-03-19T12:36:00.000Z",
+    "window_start_time": "2018-03-19T14:00:00.000Z",
+    "window_end_time": "2018-03-19T15:00:00.000Z",
+    "kml": null,
+    "requires_tracking": true,
+    "appointment_images": [],
+    "client_images": [
+        {
+            "id": "5ab2fe3d7f9ff30014591012",
+            "image_url": "https://waggle-keys-stage.s3.amazonaws.com/56aca046-f979-4e0f-a71b-98a8e9a970a6.jpeg"
+        },
+        {
+            "id": "5ab303ad4262910014aa3474",
+            "image_url": "https://waggle-keys-stage.s3.amazonaws.com/ff8c5873-2b87-41ce-a030-9f21d4c20515.jpg"
+        },
+        {
+            "id": "5ab308cc512bb90014544f60",
+            "image_url": "https://waggle-keys-stage.s3.amazonaws.com/ff8c5873-2b87-41ce-a030-9f21d4c20515.jpg"
+        },
+        {
+            "id": "5ab3111934b8380014e1115f",
+            "image_url": "https://waggle-keys-stage.s3.amazonaws.com/15277E3F-86DE-46A9-A282-42AFE050DB78-5596-000006549798FCC1.jpeg"
+        }
+    ],
+    "sitter_full_name": "Luke Griffith",
+    "pets": [
+        {
+            "id": "5a4f87161a06183b2ffcb4aa",
+            "name": "Brinkley",
+            "animal_type": "Dog",
+            "size": "L (50-80)",
+            "image_url": "https://waggle-keys-stage.s3.amazonaws.com/ff8c5873-2b87-41ce-a030-9f21d4c20515.jpg",
+            "breed": "Blue Tick Coon Hound Mix",
+            "gender": "Neutered Male",
+            "age": "Senior (>7 years)",
+            "color": "Black and Brown",
+            "weight": null,
+            "litterbox": "",
+            "pet_location": "Free roaming",
+            "leash_collar": "Leash/harness hanging to left of washer in laundry closet",
+            "harness": "Leg steps into each triangle, clips together on back",
+            "toy_info": "",
+            "personality": "Friendly",
+            "pet_class": "Yellow",
+            "pet_class_notes": "Dog aggressive--avoid other dogs.",
+            "pet_add_ons": [
+                {
+                    "id": 1,
+                    "name": "Pee",
+                    "completed": false,
+                    "pet_id": "5a4f87161a06183b2ffcb4aa"
+                },
+                {
+                    "id": 2,
+                    "name": "Poop",
+                    "completed": false,
+                    "pet_id": "5a4f87161a06183b2ffcb4aa"
+                }
+            ],
+            "food": {
+                "bowl_location": "Kitchen",
+                "food_treat_location": "Dry food in laundry closet. Open canned food in fridge, or new can in laundry.",
+                "brand_of_food": "",
+                "food_instructions": "1 cup dry food a.m., 1.5 cup dry p.m. Add 3 TBSP canned food to dry.",
+                "water_instructions": "",
+                "treat_info": "Treats above dry food."
+            },
+            "medical": {
+                "allergies": "",
+                "fixed": null,
+                "medications": []
+            },
+            "vet": {
+                "full_name": "Nick's Veterinary Hospital",
+                "address_line_2": null,
+                "state": "NC"
+            }
+        }
+    ],
+    "contact": {
+        "first_name": "Abbie",
+        "last_name": "Example",
+        "full_name": "Abbie Example",
+        "email": "example@gmail.com",
+        "phone_numbers": [
+            {
+                "number": "5619209516",
+                "type": "mobile"
+            }
+        ]
+    },
+    "home": {
+        "address": {
+            "address_line_1": "1829 Logie Ave",
+            "address_line_2": "",
+            "city": "Charlotte",
+            "state": "NC",
+            "zip_code": "28205",
+            "map_image_url": "https://waggle-keys-stage.s3.amazonaws.com/undefined",
+            "street_view_image_url": "https://waggle-keys-stage.s3.amazonaws.com/undefined",
+            "coordinates": {
+                "latitude": 35.22264513423151,
+                "longitude": -80.7987217
+            },
+            "enforce_device_within_region": true
+        },
+        "tz_locale": "America/New_York",
+        "alarm_code": "Disarm: 0212212316. Arm: Arm+Bypass All+Away. Alarm is on left as you walk in front door.",
+        "parking": "",
+        "home_access_notes": "Owner's lockbox on front door handle. CODE: 2323914, press top button down and pull toward you. Enter code again to close box. Enter home through front door.",
+        "home_class": "Green",
+        "home_class_notes": "",
+        "waste_disposal": "Garbage bin in driveway.",
+        "secured_yard": "Yes",
+        "apartment_info": "",
+        "notes": "Brinkley pulls for squirrels."
+    }
+}
+```
+
+End a visit. This is a multipart-formdata request that includes two files. The first is named `kml` and is a .kml file of where the visit took place. The second is named `raw_location_dump`, and is a .csv of the raw locations generated during the walk.
+
+### HTTP Request
+
+`POST http://example.com/sitter/appointments/<AppointmentId>/end`
+
+## Update Appointment Notes
+
+> Request body includes sitter notes to admin, and sitter notes to client.
+
+```json
+{
+  "sitter_notes_to_client": "We had a great time on our visit today! Your dog is hilarious. Etc Etc Etc.",
+  "sitter_notes_to_admin": "Dog is slightly aggressive towards other dogs."
+}
+```
+
+> Returns same appointment json as GET single visit.
+
+Setting notes for an appointment. This can happen during an in-progress visit, or within ten minutes after the visit is ended.
+
+### HTTP Request
+
+`PUT http://example.com/sitter/appointments/<AppointmentId>/notes`
+
+## Add Appointment Images
+
+> Request body includes keys for image url and favorite:
+
+```json
+{
+  "image_url": "https://s3.amazonaws.ours3bucket.com/1234u909jdlkj.jpeg",
+  "favorite": false
+}
+```
+
+> Returns an array of the appointment images:
+
+```json
+{
+  [
+    {
+      "id": "5dk09jdklkd902jk",
+      "image_url": "https://s3.amazonaws.ours3bucket.com/1234u909jdlkj.jpeg",
+      "favorite": false    
+    },
+    {
+      "id": "5dk09jdklkd902jefsdf",
+      "image_url": "https://s3.amazonaws.ours3bucket.com/2jlkd929090sd93.jpeg",
+      "favorite": true  
+    },
+  ]
+}
+```
+
+Images are uploaded directly to S3. This route updates the visit with the URL of the image in S3. It also includes a key `favorite` to indicate if the image is the best image from the visit.
+
+### HTTP Request
+
+`POST http://example.com/sitter/appointments/<appointmentId>/images`
+
+## Add Client Images
+
+> Request body includes image url
+
+```json
+{
+  "image_url": "https://s3.amazonaws.ours3bucket.com/2jlkd929090sd93.jpeg"
+}
+```
+
+> Response includes url and id from DB
+
+```json
+{
+  "image_url": "https://s3.amazonaws.ours3bucket.com/2jlkd929090sd93.jpeg",
+  "id": "5ajkd9ijldk2jlkjd09lk"
+}
+```
+Images are uploaded directly to S3.
+
+### HTTP Request
+
+`POST http://example.com/sitter/appointments/<appointmentId>/clientImages`
+
+## Add Pet Images
+
+> Request body includes image url
+
+```json
+{
+  "image_url": "https://s3.amazonaws.ours3bucket.com/2jlkd929090sd93.jpeg"
+}
+```
+
+> Response includes url and id from DB
+
+```json
+{
+  "image_url": "https://s3.amazonaws.ours3bucket.com/2jlkd929090sd93.jpeg",
+  "id": "5ajkd9ijldk2jlkjd09lk"
+}
+```
+These are pet-specific images, to be used as a pet's 'profile' picture. Images are uploaded directly to S3.
+
+### HTTP Request
+
+`POST http://example.com/sitter/pets/<petId>/images`
+
+## Delete Appointment Image
+
+> Successful response is an object with message 'Image deleted.':
+
+```json
+{
+  "message": "Image Deleted."
+}
+```
+
+Delete a specific image for a visit.
+
+### HTTP Request
+
+`DELETE http://example.com/sitter/appointments/<appointmentId>/images/<imageId>`
+
+## Edit Appointment Image
+
+> Request body currently is only key of favorite true/false:
+
+```json
+{
+  "favorite": true
+}
+```
+> Returns image object:
+
+```json
+{
+  "id": "5jk90ljkddkjlkjs",
+  "image_url": "https://s3.amazonaws.ours3bucket.com/2jlkd929090sd93.jpeg",
+  "favorite": true
+}
+```
+
+### HTTP Request
+
+`PUT http://example.com/sitter/appointments/<appointmentId>/images/<imageId>`
+
+## Complete/Uncomplete Add-On
+
+> Request body includes an array of addOns:
+
+```json
+{
+  "addOns": [{"id": 2, "name": "Pee", "completed": true, "pet_id": "5a4f87201a06183b2ffcb532"}]
+}
+```
+
+This will complete or un-complete an appointment add-on. The array should include the add-on id, whether or not the add-on is completed, add the pet_id, if applicable.
+
+### HTTP Request
+
+`PUT http://example.com/sitter/appointments/<appointmentId>/addOns`
